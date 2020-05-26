@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dbflow5.config.FlowManager;
 import com.dbflow5.database.DatabaseWrapper;
 import com.dbflow5.query.SQLite;
+import com.example.top.View.NotificacionLocalActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -124,9 +125,16 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        Intent intent;
+        switch (id){
+            case R.id.action_settings:
+                intent = new Intent(MainActivity.this, NotificacionLocalActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_firebase:
+                intent = new Intent(MainActivity.this, FireBaseActivity.class);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
