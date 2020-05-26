@@ -16,10 +16,9 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dbflow5.config.FlowManager;
-import com.dbflow5.database.DatabaseWrapper;
 import com.dbflow5.query.SQLite;
-import com.example.top.View.NotificacionLocalActivity;
+import com.example.top.view.ConsumoApiActivity;
+import com.example.top.view.NotificacionLocalActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -133,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 break;
             case R.id.action_firebase:
                 intent = new Intent(MainActivity.this, FireBaseActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_consumo_api:
+                intent = new Intent(MainActivity.this, ConsumoApiActivity.class);
                 startActivity(intent);
                 break;
         }

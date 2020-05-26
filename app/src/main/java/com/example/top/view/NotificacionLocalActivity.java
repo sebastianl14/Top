@@ -1,4 +1,4 @@
-package com.example.top.View;
+package com.example.top.view;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

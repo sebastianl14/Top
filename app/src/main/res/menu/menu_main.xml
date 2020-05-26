@@ -13,4 +13,10 @@
         android:orderInCategory="200"
         android:title="@string/action_firebase"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_consumo_api"
+        android:orderInCategory="300"
+        android:title="@string/action_consumo_api"
+        app:showAsAction="never" />
 </menu>

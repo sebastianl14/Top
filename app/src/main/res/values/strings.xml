@@ -2,6 +2,7 @@
     <string name="app_name">Top</string>
     <string name="action_settings">Notificacion Local</string>
     <string name="action_firebase">FireBase</string>
+    <string name="action_consumo_api">Consumo Api</string>
     <string name="artist.hint.nombre">Nombre</string>
     <string name="artist.hint.orden">Orden</string>
     <string name="artist.hint.apellidos">Apellidos</string>
