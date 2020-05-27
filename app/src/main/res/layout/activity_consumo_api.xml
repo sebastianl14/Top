@@ -2,8 +2,43 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contenedor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ConsumoApiActivity">
 
+    <EditText
+        android:id="@+id/etIdUsuario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Id Usuario"
+        android:inputType="number"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnConsumirApi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Consumir API"
+        app:layout_constraintStart_toStartOf="@+id/etIdUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/etIdUsuario" />
+
+    <TextView
+        android:id="@+id/tvResultado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:lines="20"
+        app:layout_constraintEnd_toEndOf="@+id/etIdUsuario"
+        app:layout_constraintStart_toStartOf="@+id/btnConsumirApi"
+        app:layout_constraintTop_toBottomOf="@+id/btnConsumirApi" />
 </androidx.constraintlayout.widget.ConstraintLayout>
