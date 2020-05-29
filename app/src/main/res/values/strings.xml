@@ -119,4 +119,8 @@
         <item>Masculino</item>
         <item>Femenino</item>
     </string-array>
+    <string name="title_comida_list">Comidas</string>
+    <string name="title_comida_detail">Comida Detail</string>
+    <string name="comidaList_dialog_title">Mi Perfil</string>
+    <string name="comidaList_dialog_ok">OK</string>
 </resources>

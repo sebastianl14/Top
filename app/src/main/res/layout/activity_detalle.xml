@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app.bar.height"
+        android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -31,7 +31,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imgFoto"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/app.bar.height"
+                    android:layout_height="@dimen/app_bar_height"
                     android:background="@android:color/darker_gray"
                     android:src="@drawable/ic_photo_size_select_actual" />
 
