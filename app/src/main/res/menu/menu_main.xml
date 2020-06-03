@@ -25,4 +25,10 @@
         android:orderInCategory="400"
         android:title="Comida"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_login"
+        android:orderInCategory="500"
+        android:title="Login"
+        app:showAsAction="never" />
 </menu>

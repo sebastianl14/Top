@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.top.R;
@@ -36,7 +37,11 @@ public class ConsumoApiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_consumo_api);
         ButterKnife.bind(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
