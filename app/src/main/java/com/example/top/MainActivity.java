@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dbflow5.query.SQLite;
 import com.example.top.view.ComidaListActivity;
 import com.example.top.view.ConsumoApiActivity;
+import com.example.top.view.FcmActivity;
 import com.example.top.view.LoginActivity;
 import com.example.top.view.NotificacionLocalActivity;
 import com.google.android.material.snackbar.Snackbar;
@@ -146,6 +147,10 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 break;
             case R.id.action_login:
                 intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_fcm:
+                intent = new Intent(MainActivity.this, FcmActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -31,4 +31,10 @@
         android:orderInCategory="500"
         android:title="Login"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_fcm"
+        android:orderInCategory="600"
+        android:title="FCM"
+        app:showAsAction="never" />
 </menu>
