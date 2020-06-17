@@ -37,4 +37,10 @@
         android:orderInCategory="600"
         android:title="FCM"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_fotografias"
+        android:orderInCategory="700"
+        android:title="Fotografías"
+        app:showAsAction="never" />
 </menu>

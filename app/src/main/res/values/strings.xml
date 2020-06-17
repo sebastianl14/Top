@@ -127,4 +127,8 @@
     <string name="normal_channel_name">Oferta normal</string>
     <string name="low_channel_id">channel.id.notification.low</string>
     <string name="low_channel_name">Oferta baja</string>
+
+    <string name="main_label_gallery">Galería</string>
+    <string name="main_label_camera">Cámara</string>
+    <string name="subir">Subir</string>
 </resources>

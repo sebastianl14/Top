@@ -30,6 +30,9 @@
         <activity
             android:name=".view.FcmActivity"
             android:label="Notificaciones" />
+        <activity
+            android:name=".view.FotografiasActivity"
+            android:label="Fotografías" />
         <!--
                 android:theme="@style/AppTheme"
             android:theme="@style/MyTheme.DayNight"
