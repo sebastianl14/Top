@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -22,7 +23,10 @@ import com.example.top.view.ConsumoApiActivity;
 import com.example.top.view.FcmActivity;
 import com.example.top.view.LoginActivity;
 import com.example.top.view.NotificacionLocalActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +59,14 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         configRecyclerView();
 
         generateArtist();
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                Log.d("TokenId", instanceIdResult.getToken());
+            }
+        });
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        FloatingActionButton fab = findViewById(R.id.fab);

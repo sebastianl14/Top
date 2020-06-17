@@ -6,4 +6,63 @@
     android:layout_height="match_parent"
     tools:context=".view.FcmActivity">
 
+    <LinearLayout
+        android:id="@+id/llTopics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar:" />
+
+        <Spinner
+            android:id="@+id/spTopics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/topics" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llTopics" >
+
+        <Button
+            android:id="@+id/btnSuscribir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Suscribir"
+            style="@style/Widget.MaterialComponents.Button" />
+
+        <Button
+            android:id="@+id/btnDesuscribir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Desuscribir"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvTopics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Topicos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llButtons" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

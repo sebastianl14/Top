@@ -14,16 +14,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.FcmActivity"
-            android:label="Notificaciones">
-        </activity>
+        <service
+            android:name=".services.FcmMessagingService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notificacion" />
+        <meta-data android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimary" />
+
+        <activity
+            android:name=".view.FcmActivity"
+            android:label="Notificaciones" />
         <!--
                 android:theme="@style/AppTheme"
             android:theme="@style/MyTheme.DayNight"
         -->
         <activity
             android:name=".view.LoginActivity"
-            android:label="Login"></activity>
+            android:label="Login" />
         <activity
             android:name=".view.ComidaListActivity"
             android:label="@string/title_comida_list"
