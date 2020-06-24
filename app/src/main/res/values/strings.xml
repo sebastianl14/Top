@@ -138,4 +138,12 @@
     <string name="fotografia_message_delete_success">Imagen eliminada correctamente.</string>
     <string name="fotografia_message_delete_error">Error al eliminar.</string>
     <string name="fotografia_message_error_notFound">La imagen no se pudo cargar.</string>
+    <string name="nombre_usuario">Nombre</string>
+    <string name="email">Correo</string>
+    <string name="provider">Proveedor</string>
+
+
+    <string name="facebook_application_id" translatable="false">699376904240468</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb699376904240468</string>
+
 </resources>
