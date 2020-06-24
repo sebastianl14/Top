@@ -23,6 +23,7 @@ import com.example.top.view.ConsumoApiActivity;
 import com.example.top.view.FcmActivity;
 import com.example.top.view.FotografiasActivity;
 import com.example.top.view.LoginActivity;
+import com.example.top.view.MultiLoginActivity;
 import com.example.top.view.NotificacionLocalActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -168,6 +169,10 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 break;
             case R.id.action_fotografias:
                 intent = new Intent(MainActivity.this, FotografiasActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_multi_login:
+                intent = new Intent(MainActivity.this, MultiLoginActivity.class);
                 startActivity(intent);
                 break;
         }

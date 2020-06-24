@@ -43,4 +43,10 @@
         android:orderInCategory="700"
         android:title="Fotografías"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_multi_login"
+        android:orderInCategory="800"
+        android:title="Multi Login"
+        app:showAsAction="never" />
 </menu>
