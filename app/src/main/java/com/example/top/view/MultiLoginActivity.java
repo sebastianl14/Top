@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,12 +36,15 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -46,18 +53,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MultiLoginActivity extends AppCompatActivity {
 
 
     @BindView(R.id.imgFotoPerfil)
-    ImageView imgFotoPerfil;
+    CircleImageView imgFotoPerfil;
     @BindView(R.id.tvNombreUsuario)
     TextView tvNombreUsuario;
     @BindView(R.id.tvEmail)
     TextView tvEmail;
     @BindView(R.id.tvProvider)
     TextView tvProvider;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.tvProgress)
+    TextView tvProgress;
 
     private static final int RC_SIGN_IN = 123;
     private static final int RC_GALERIA = 124;
@@ -92,14 +104,22 @@ public class MultiLoginActivity extends AppCompatActivity {
                             .setPermissions(Arrays.asList("user_friends", "user_gender"))
                             .build();
 
+                    AuthUI.IdpConfig googleIdp = new AuthUI.IdpConfig.GoogleBuilder()
+                            //.setScopes(Arrays.asList(Scopes.GAMES))
+                            .build();
+
                     startActivityForResult(AuthUI.getInstance()
                             .createSignInIntentBuilder()
                             .setIsSmartLockEnabled(false)
                             .setTosAndPrivacyPolicyUrls(
                                     "https://example.com/terms.html",
                                     "https://example.com/privacy.html")
-                            .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
-                                    facebookIdpConfig))
+                            .setAvailableProviders(Arrays.asList(
+                                    new AuthUI.IdpConfig.EmailBuilder().build(),
+                                    new AuthUI.IdpConfig.PhoneBuilder().build(),
+                                    facebookIdpConfig, googleIdp))
+                            .setTheme(R.style.GreenTheme)
+                            .setLogo(R.drawable.img_multi_login)
                             .build(), RC_SIGN_IN);
                 }
             }
@@ -168,6 +188,9 @@ public class MultiLoginActivity extends AppCompatActivity {
                     case EmailAuthProvider.PROVIDER_ID:
                         provider = EmailAuthProvider.PROVIDER_ID;
                         break;
+                    case PhoneAuthProvider.PROVIDER_ID:
+                        provider = EmailAuthProvider.PROVIDER_ID;
+                        break;
                 }
             }
 
@@ -177,6 +200,9 @@ public class MultiLoginActivity extends AppCompatActivity {
                     break;
                 case FacebookAuthProvider.PROVIDER_ID:
                     drawableRes = R.drawable.ic_facebook;
+                    break;
+                case GoogleAuthProvider.PROVIDER_ID:
+                    drawableRes = R.drawable.ic_google;
                     break;
                 default:
                     drawableRes = R.drawable.ic_block_helper;
@@ -205,44 +231,163 @@ public class MultiLoginActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Intente de nuevo", Toast.LENGTH_SHORT).show();
             }
-        } else if (requestCode == RC_GALERIA && resultCode == RESULT_OK){
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            final StorageReference reference = storage.getReference().child(PATH_PERFIL).child(MI_FOTO_AUTE);
+        } else if (requestCode == RC_GALERIA && resultCode == RESULT_OK) {
+            progressBar.setVisibility(View.VISIBLE);
 
-            Uri selectedImageUri = data.getData();
-            if (selectedImageUri != null){
-                reference.putFile(selectedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                if (user != null){
-                                    UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
-                                            .setPhotoUri(uri)
-                                            .build();
-
-                                    user.updateProfile(request).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
-                                                cargarImagen(user.getPhotoUrl());
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MultiLoginActivity.this, "Se presento un error al actualizar la imagen",
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
+            if (true) {
+                subirImagenTarea(data.getData());
+            } else {
+                subirImagenStorage(data.getData());
             }
+        }
+    }
+
+    private void subirImagenTarea(Uri selectedImageUri) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        final StorageReference reference = storage.getReference().child(PATH_PERFIL).child(MI_FOTO_AUTE);
+
+        Bitmap bitmap;
+        try {
+
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+            } else {
+                ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), selectedImageUri);
+                bitmap = ImageDecoder.decodeBitmap(source);
+            }
+            bitmap = getResizedBitmap(bitmap, 1024);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = reference.putBytes(data);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) {
+                                UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                                        .setPhotoUri(uri)
+                                        .build();
+
+                                user.updateProfile(request).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            cargarImagen(user.getPhotoUrl());
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(MultiLoginActivity.this, "Se presento un error al actualizar la imagen",
+                            Toast.LENGTH_LONG).show();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    tvProgress.setText("Se cargo la imagen");
+                    tvProgress.animate().alpha(0).setDuration(2000);
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100 * taskSnapshot.getBytesTransferred()) /
+                            taskSnapshot.getTotalByteCount();
+
+                    progressBar.setProgress((int)progress);
+                    tvProgress.setText(String.format("%s%%", progress));
+                    tvProgress.animate().alpha(1).setDuration(200);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Bitmap getResizedBitmap(Bitmap bitmap, int maxSize) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        if (width <= maxSize && height <= maxSize){
+            return bitmap;
+        }
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1){
+            width = maxSize;
+            height = (int)(width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int)(height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, width, height, true);
+    }
+
+    private void subirImagenStorage(Uri selectedImageUri){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        final StorageReference reference = storage.getReference().child(PATH_PERFIL).child(MI_FOTO_AUTE);
+
+        //Uri selectedImageUri = data.getData();
+        if (selectedImageUri != null) {
+            reference.putFile(selectedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) {
+                                UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                                        .setPhotoUri(uri)
+                                        .build();
+
+                                user.updateProfile(request).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            cargarImagen(user.getPhotoUrl());
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(MultiLoginActivity.this, "Se presento un error al actualizar la imagen",
+                            Toast.LENGTH_LONG).show();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    tvProgress.setText("Se cargo la imagen");
+                    tvProgress.animate().alpha(0).setDuration(2000);
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100 * taskSnapshot.getBytesTransferred()) /
+                            taskSnapshot.getTotalByteCount();
+
+                    progressBar.setProgress((int)progress);
+                    tvProgress.setText(String.format("%s%%", progress));
+                    tvProgress.animate().alpha(1).setDuration(200);
+                }
+            });
         }
     }
 
