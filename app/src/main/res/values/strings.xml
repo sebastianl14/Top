@@ -142,8 +142,14 @@
     <string name="email">Correo</string>
     <string name="provider">Proveedor</string>
 
+    <string name="title_activity_registrar_turno">Registrar Turno</string>
+    <string name="dummy_button">Solicitar Turno</string>
+    <string name="dummy_content">BIENVENIDO, REGISTRESE Y ESPERE SU TURNO. GRACIAS.</string>
 
     <string name="facebook_application_id" translatable="false">699376904240468</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb699376904240468</string>
-
+    <string name="hint_name">Nombre</string>
+    <string name="hint_phone">Telefono</string>
+    <string name="registrarTurno_message_config_remote">Configuración Remota</string>
+    <string name="registrarTurno_message_config_local">Configuración Local</string>
 </resources>

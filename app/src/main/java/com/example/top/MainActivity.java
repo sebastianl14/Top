@@ -25,6 +25,7 @@ import com.example.top.view.FotografiasActivity;
 import com.example.top.view.LoginActivity;
 import com.example.top.view.MultiLoginActivity;
 import com.example.top.view.NotificacionLocalActivity;
+import com.example.top.view.RegistrarTurnoActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -173,6 +174,10 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 break;
             case R.id.action_multi_login:
                 intent = new Intent(MainActivity.this, MultiLoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_tuno:
+                intent = new Intent(MainActivity.this, RegistrarTurnoActivity.class);
                 startActivity(intent);
                 break;
         }

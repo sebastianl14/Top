@@ -49,4 +49,10 @@
         android:orderInCategory="800"
         android:title="Multi Login"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_tuno"
+        android:orderInCategory="900"
+        android:title="Turno"
+        app:showAsAction="never" />
 </menu>

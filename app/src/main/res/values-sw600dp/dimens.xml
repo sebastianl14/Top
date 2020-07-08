@@ -16,7 +16,7 @@
     <dimen name="imagen_login_size">264dp</dimen>
     <dimen name="padding_tv">8dp</dimen>
 
-    <dimen name="text_sixe_form">18sp</dimen>
-    <dimen name="padding_vertical">8dp</dimen>
-    <dimen name="padding_horizontal">16dp</dimen>
+    <dimen name="text_sixe_form">26sp</dimen>
+    <dimen name="padding_vertical">16dp</dimen>
+    <dimen name="padding_horizontal">240dp</dimen>
 </resources>
