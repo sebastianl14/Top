@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dbflow5.query.SQLite;
+import com.example.top.mainModule.view.InventarioActivity;
 import com.example.top.view.ComidaListActivity;
 import com.example.top.view.ConsumoApiActivity;
 import com.example.top.view.FcmActivity;
@@ -178,6 +179,10 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 break;
             case R.id.action_tuno:
                 intent = new Intent(MainActivity.this, RegistrarTurnoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_inventario:
+                intent = new Intent(MainActivity.this, InventarioActivity.class);
                 startActivity(intent);
                 break;
         }

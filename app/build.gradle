@@ -78,6 +78,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:${retrofit2Version}"
     implementation "com.squareup.retrofit2:converter-gson:${retrofit2Version}"
 
+    //EventBus
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
     // Annotation Processor
     // if only using Java, use this. If using Kotlin do NOT use this.
     annotationProcessor "com.github.agrosner.dbflow:processor:${dbflow_version}"

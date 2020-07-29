@@ -19,4 +19,8 @@
     <dimen name="text_sixe_form">18sp</dimen>
     <dimen name="padding_vertical">8dp</dimen>
     <dimen name="padding_horizontal">16dp</dimen>
+    <dimen name="commomn_item_cornerRadius">4dp</dimen>
+    <dimen name="padding_item_product_text">4dp</dimen>
+    <dimen name="add_photo_size_width">96dp</dimen>
+    <dimen name="add_photo_size_heigth">80dp</dimen>
 </resources>

@@ -17,10 +17,14 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".mainModule.view.InventarioActivity"
+            android:label="Inventario"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".view.RegistrarTurnoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_registrar_turno"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity android:name=".view.MultiLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

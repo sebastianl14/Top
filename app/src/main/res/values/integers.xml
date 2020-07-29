@@ -5,4 +5,6 @@
     <integer name="lugarNacimiento.maxLenght">50</integer>
     <integer name="notas.maxLenght">1000</integer>
     <integer name="estatura_min">50</integer>
+    <integer name="inventario_columns">3</integer>
+    <integer name="addProduct_max_name">30</integer>
 </resources>

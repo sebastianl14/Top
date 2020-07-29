@@ -152,4 +152,27 @@
     <string name="hint_phone">Telefono</string>
     <string name="registrarTurno_message_config_remote">Configuración Remota</string>
     <string name="registrarTurno_message_config_local">Configuración Local</string>
+    <string name="item_product_count">Nombre:\nCantidad:</string>
+    <string name="item_product_data">%s \n(x%d)</string>
+    <string name="inventario_error_permission_denied">Lo siento, no tienes permisos para ver el inventario.</string>
+    <string name="inventario_error_server">Error en el servidor, intente mas tarde.</string>
+    <string name="inventario_error_remove">Lo siento, usted no tiene permiso de eliminar un producto.</string>
+    <string name="inventario_dialog_remove_title">Eliminar Producto</string>
+    <string name="inventario_dialog_remove_message">Este producto se eliminara de forma permanente.</string>
+
+    <string name="eliminar">Eliminar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addProduct_hint_photoUrl">Url de foto</string>
+    <string name="addProduct_hint_name">Nombre</string>
+    <string name="addProduct_hint_quantity">Cantidad</string>
+    <string name="addProduct_message_validate_max_quantity">El valor debe ser menor a 1000.</string>
+    <string name="addProduct_message_added_error">No se pudo guardar, intente mas tarde.</string>
+    <string name="addProduct_title">Añadir Producto</string>
+    <string name="addProduct_dialog_ok">Añadir</string>
+    <string name="addProduct_message_added_successfully">Producto añadido.</string>
+    <string name="addProduct_snackbar_action">OK</string>
+    <string name="common_validate_field_required">Esta campo es requerido.</string>
+    <string name="common_validate_min_quantity">El valor debe ser mayor a 0.</string>
 </resources>
