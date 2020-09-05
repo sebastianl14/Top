@@ -11,6 +11,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.top.R;
 import com.example.top.addModule.view.AddProductFragment;
 import com.example.top.common.pojo.Product;
+import com.example.top.detailModule.view.DetailFragment;
 import com.example.top.mainModule.InventarioPresenter;
 import com.example.top.mainModule.InventarioPresenterClass;
 import com.example.top.mainModule.view.adapters.OnItemClickListener;
@@ -148,7 +151,18 @@ public class InventarioActivity extends AppCompatActivity implements OnItemClick
 
     @Override
     public void OnItemClick(Product product) {
+        Bundle args = new Bundle();
+        args.putString(Product.ID, product.getId());
+        args.putString(Product.NAME, product.getName());
+        args.putInt(Product.QUANTITY, product.getQuantity());
+        args.putString(Product.PHOTO_URL, product.getPhotoUrl());
 
+        Fragment fragment = new DetailFragment();
+        fragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.contentMain, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
